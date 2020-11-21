@@ -13,6 +13,7 @@ const sendForm = () => {
         formName = document.querySelectorAll('.form-name'),
         formEmail = document.querySelectorAll('.form-email'),
         topForm = form2.querySelector('.top-form'),
+        popup = document.querySelector('.popup'),
         form2Mess = form2.querySelector('.mess');
 
      
@@ -22,10 +23,9 @@ const sendForm = () => {
 
     formPhone.forEach(item => {
         item.addEventListener('input', () => {
-            
             item.setAttribute('maxlength', '11');
-            item.setAttribute('minlength', '7')
-            item.value = item.value.replace(/[^0-9+]/gi, '');            
+            item.value = item.value.replace(/[^0-9+]/gi, '');  
+                   
         })
     });
     formName.forEach(item => {
@@ -44,7 +44,7 @@ const sendForm = () => {
         topForm.value = topForm.value.replace(/[^а-я\s]/gi, '');
     });
     form2Mess.addEventListener('input', () => {
-        form2Mess.value = form2Mess.value.replace(/[^а-я\s]/gi, '');
+        form2Mess.value = form2Mess.value.replace(/[^а-я\s\W^]/gi, '');
     });
 
     const statusMessage = document.createElement('div');
@@ -53,6 +53,7 @@ const sendForm = () => {
     statusMessage.style.color = '#fff';
     let timeOut = () => {
         setTimeout(() => {
+            popup.style.display = 'none';
             statusMessage.remove();
         }, 3000);
     }
@@ -66,6 +67,12 @@ const sendForm = () => {
         for(let val of formData.entries()){
             body[val[0]] = val[1]
         }
+        console.log(formPhone.value);
+        if(formPhone[0].value.length < 6){  
+            alert('Введите полный номер телефона');
+            statusMessage.textContent = '';
+            return;
+        };
         postData(body)
             .then((response) => {
                 if(response.status !== 200){
@@ -93,6 +100,11 @@ const sendForm = () => {
         for(let val of formData.entries()){
             body[val[0]] = val[1]
         }
+        if(formPhone[1].value.length < 6){   
+            alert('Введите полный номер телефона');
+            statusMessage.textContent = '';
+            return;
+        };
         postData(body)
             .then((response) => {
                 if(response.status !== 200){
@@ -120,6 +132,11 @@ const sendForm = () => {
         for(let val of formData.entries()){
             body[val[0]] = val[1]
         }
+        if(formPhone[2].value.length < 6){   
+            alert('Введите полный номер телефона');
+            statusMessage.textContent = '';
+            return;
+        };
         postData(body)
             .then((response) => {
                 if(response.status !== 200){

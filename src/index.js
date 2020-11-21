@@ -6,6 +6,9 @@ elementClosest(window);
 import 'formdata-polyfill';
 import 'es6-promise';
 import 'fetch-polyfill';
+import  'regexp-polyfill';
+import browser from 'cross-browser-polyfill';
+browser()
 import calc from './modules/calc';
 import calcСheck from './modules/calcСheck';
 import countTimer from './modules/countTimer';
@@ -18,7 +21,7 @@ import togglePopUp from './modules/togglePopUp';
 import toggleStr from './modules/toggleStr';
 
 
-countTimer('20 november 2020');
+countTimer('30 november 2020');
 
 //меню
 toggleMenu();
