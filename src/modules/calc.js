@@ -18,24 +18,38 @@ const calc = (price = 100) => {
         }
          if(calcDay.value < 5 && calcDay.value > 0){
             dayValue *= 2;
-         } else if (calcDay.value < 10 && calcDay.value > 0){
+         } else if (calcDay.value < 10 && calcDay.value > 6){
             dayValue *= 1.5;
          } else  if(calcDay.value > 11){
             dayValue *= 1;
          }
         if(typeValue && squareValue) {
             total = Math.round(price * typeValue * squareValue * countValue * dayValue);
-            let interval = setInterval(() => { 
-                n += 100;
+            if(total < n) {
+                let interval = setInterval(() => { 
+                    n -= 100;
+                if(total >= n) {
+                    clearInterval(interval);
+                }
+                totalValue.textContent = n;
+            }, 0.1);
+            } else if (total > n){
+                let interval = setInterval(() => { 
+                    n += 100;
                 if(total <= n) {
                     clearInterval(interval);
                 }
                 totalValue.textContent = n;
             }, 0.1);
+            } else {
+                totalValue.textContent = n;
+            }
+            
         } 
     };
     
         calcBlock.addEventListener('change', (e) => {
+            
             const target = e.target;
             if(target.matches('.calc-type') || target.matches('.calc-square') ||
             target.matches('.calc-day') || target.matches('.calc-count')) {

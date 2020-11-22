@@ -28,6 +28,16 @@ const toggleMenu = () => {
             } 
         }
     });
-
+    const arrow = menu.querySelectorAll('li>a');
+    arrow.forEach((item) => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const idBlock = item.getAttribute('href');
+            document.querySelector(idBlock).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+        });
+    })
 };
 export default toggleMenu;
